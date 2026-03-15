@@ -1,1 +1,296 @@
-Hello!
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Valerio Simeraro - System Administrator & DevOps Engineer Portfolio">
+    <title>Valerio Simeraro | DevOps & SysAdmin</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;600;800&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Hooks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="bg-gradient-1"></div>
+    <div class="bg-gradient-2"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar glass-effect">
+        <div class="logo">
+            <span class="logo-bracket"><</span>
+            <span class="logo-text">V.Simeraro</span>
+            <span class="logo-bracket">/></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">~Home</a></li>
+            <li><a href="#skills">~Skills</a></li>
+            <li><a href="#certifications">~Certifications</a></li>
+            <li><a href="#experience">~Experience</a></li>
+            <li><a href="#contact">~Contact</a></li>
+        </ul>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero section">
+            <div class="hero-content">
+                <div class="terminal-container glass-effect">
+                    <div class="terminal-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                        <span class="terminal-title">bash - root@vsimeraro:~</span>
+                    </div>
+                    <div class="terminal-body" id="terminal-body">
+                        <!-- JS injects text here -->
+                    </div>
+                </div>
+                <div class="hero-text fade-in-up">
+                    <div class="profile-pic-container">
+                        <img src="https://github.com/th3f3n1x87.png" alt="Valerio Simeraro" class="profile-pic">
+                        <div class="profile-glow"></div>
+                    </div>
+                    <h1 class="glitch" data-text="Valerio Simeraro">Valerio Simeraro</h1>
+                    <h2 class="subtitle">System Administrator <span class="accent">&</span> DevOps Engineer</h2>
+                    <p class="summary text-dim">
+                        Infrastrutture scalabili, automazione spinta e sicurezza come principio base.
+                        Ottimizzo sistemi complessi per garantire performance e affidabilità in ambienti mission-critical.
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="#experience" class="btn btn-primary">
+                            <i class="fas fa-server"></i> Initialize
+                        </a>
+                        <a href="#contact" class="btn btn-secondary">
+                            <i class="fas fa-envelope"></i> Ping Me
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="skills section">
+            <h2 class="section-title fade-in-up">System <span class="accent">Architecture</span></h2>
+            
+            <div class="skills-grid">
+                <!-- Skill Card 1 -->
+                <div class="skill-card glass-effect fade-in-up" style="--delay: 0.1s">
+                    <div class="skill-icon">
+                        <i class="fab fa-linux"></i>
+                    </div>
+                    <h3>OS & Virtualization</h3>
+                    <p class="text-dim">Esperienza avanzata in ambienti Linux (Debian, RHEL) e Windows Server. Gestione e ottimizzazione hipervisor (VMware, Proxmox).</p>
+                    <ul class="tech-tags">
+                        <li>Linux Root</li>
+                        <li>Windows Server</li>
+                        <li>VMware</li>
+                    </ul>
+                </div>
+
+                <!-- Skill Card 2 -->
+                <div class="skill-card glass-effect fade-in-up" style="--delay: 0.2s">
+                    <div class="skill-icon">
+                        <i class="fab fa-docker"></i>
+                    </div>
+                    <h3>Containers & Orchestration</h3>
+                    <p class="text-dim">Progettazione e deploy di architetture a microservizi. Gestione del ciclo di vita dei container e orchestrazione.</p>
+                    <ul class="tech-tags">
+                        <li>Docker</li>
+                        <li>Kubernetes</li>
+                        <li>Podman</li>
+                    </ul>
+                </div>
+
+                <!-- Skill Card 3 -->
+                <div class="skill-card glass-effect fade-in-up" style="--delay: 0.3s">
+                    <div class="skill-icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <h3>CI/CD & Automation</h3>
+                    <p class="text-dim">Creazione di pipeline automatizzate per Continuous Integration e Continuous Deployment. Infrastructure as Code (IaC).</p>
+                    <ul class="tech-tags">
+                        <li>GitLab CI</li>
+                        <li>Ansible</li>
+                        <li>Terraform</li>
+                    </ul>
+                </div>
+
+                <!-- Skill Card 4 -->
+                <div class="skill-card glass-effect fade-in-up" style="--delay: 0.4s">
+                    <div class="skill-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>Networking & Security</h3>
+                    <p class="text-dim">Configurazione apparati di rete, firewall, VPN e load balancer. Best practices per la sicurezza perimetrale ed applicativa.</p>
+                    <ul class="tech-tags">
+                        <li>Firewall</li>
+                        <li>Routing</li>
+                        <li>VPN</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section id="certifications" class="certifications section">
+            <h2 class="section-title fade-in-up">Proving <span class="accent">Grounds</span></h2>
+            
+            <div class="cert-grid">
+                <!-- Cert 1 -->
+                <div class="cert-card glass-effect fade-in-up" style="--delay: 0.1s">
+                    <div class="cert-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3>AWS Certified Solutions Architect</h3>
+                    <p class="text-dim">Amazon Web Services</p>
+                    <span class="cert-date">[ 2023 ]</span>
+                </div>
+
+                <!-- Cert 2 -->
+                <div class="cert-card glass-effect fade-in-up" style="--delay: 0.2s">
+                    <div class="cert-icon">
+                        <i class="fab fa-redhat"></i>
+                    </div>
+                    <h3>Red Hat Certified Engineer (RHCE)</h3>
+                    <p class="text-dim">Red Hat</p>
+                    <span class="cert-date">[ 2022 ]</span>
+                </div>
+
+                <!-- Cert 3 -->
+                <div class="cert-card glass-effect fade-in-up" style="--delay: 0.3s">
+                    <div class="cert-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>CompTIA Security+</h3>
+                    <p class="text-dim">CompTIA</p>
+                    <span class="cert-date">[ 2021 ]</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Timeline Section -->
+        <section id="experience" class="experience section">
+            <h2 class="section-title fade-in-up">Career <span class="accent">Log</span></h2>
+            
+            <div class="timeline">
+                <!-- Timeline Item 1 -->
+                <div class="timeline-item fade-in-up">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content glass-effect">
+                        <span class="timeline-date">[ 2020 - Present ]</span>
+                        <h3 class="timeline-role">Senior DevOps Engineer</h3>
+                        <h4 class="timeline-company accent">Azienda IT Placeholder</h4>
+                        <p class="text-dim">
+                            - Migrazione di infrastrutture legacy verso ambienti cloud-native (Kubernetes/Docker). <br>
+                            - Implementazione di pipeline CI/CD riducendo i tempi di deploy del 40%. <br>
+                            - Gestione e monitoraggio di cluster ad alta affidabilità.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="timeline-item fade-in-up">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content glass-effect">
+                        <span class="timeline-date">[ 2016 - 2020 ]</span>
+                        <h3 class="timeline-role">System Administrator</h3>
+                        <h4 class="timeline-company accent">Azienda IT Placeholder</h4>
+                        <p class="text-dim">
+                            - Amministrazione sistemi Linux/Windows. <br>
+                            - Gestione backup, disaster recovery e ottimizzazione reti aziendali. <br>
+                            - Supporto server e troubleshooting avanzato.
+                        </p>
+                    </div>
+                </div>
+                
+                 <!-- Timeline Item 3 -->
+                <div class="timeline-item fade-in-up">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content glass-effect">
+                        <span class="timeline-date">[ 2012 - 2016 ]</span>
+                        <h3 class="timeline-role">IT Technician & Junior Sysadmin</h3>
+                        <h4 class="timeline-company accent">Azienda Placeholder</h4>
+                        <p class="text-dim">
+                            - Assistenza helpdesk livello 2/3. <br>
+                            - Manutenzione hardware e cablaggio reti strutturate. <br>
+                            - Prima configurazione di server e apparati di rete attivi.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact section">
+             <div class="contact-container glass-effect fade-in-up">
+                <h2 class="section-title" style="text-align: left; margin-top: 0;">Initiate <span class="accent">Connection</span></h2>
+                <p class="text-dim mb-4">Pronto per affrontare nuove sfide infrastrutturali. Scrivimi un messaggio o connettiti tramite i network professionali.</p>
+                
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <div class="info-item">
+                            <i class="fas fa-envelope accent"></i>
+                            <div>
+                                <h4>Email</h4>
+                                <p>valerio.simeraro@example.com</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fab fa-linkedin accent"></i>
+                            <div>
+                                <h4>LinkedIn</h4>
+                                <p>linkedin.com/in/valeriosimeraro</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fab fa-github accent"></i>
+                            <div>
+                                <h4>GitHub</h4>
+                                <p>github.com/th3f3n1x87</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form class="contact-form" onsubmit="event.preventDefault(); alert('Form di contatto simulato. Implementare invio backend.');">
+                        <div class="form-group">
+                            <input type="text" id="name" required placeholder=" ">
+                            <label for="name">sudo whoami</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" required placeholder=" ">
+                            <label for="email">email address</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" rows="4" required placeholder=" "></textarea>
+                            <label for="message">echo "Message payload..."</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary submit-btn">
+                            ./send.sh <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+             </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content glass-effect">
+            <p>&copy; 2024 Valerio Simeraro. System running optimally.</p>
+            <div class="uptime-counter">Uptime: <span id="uptime">0d 0h 0m</span></div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
