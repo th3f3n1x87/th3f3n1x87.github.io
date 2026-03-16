@@ -1,0 +1,34 @@
+[
+    {
+        "slug": "kubernetes-per-sysadmin",
+        "title": "Kubernetes per SysAdmin: da Zero a Cluster",
+        "date": "2026-03-10",
+        "author": "Valerio Simeraro",
+        "tags": ["kubernetes", "devops", "containers", "linux"],
+        "excerpt": "Una guida pratica per i sistemisti che vogliono capire Kubernetes davvero, senza marketing. Dalle architetture ai pod, fino alla gestione di un cluster in produzione."
+    },
+    {
+        "slug": "ansible-automazione-infrastruttura",
+        "title": "Ansible: Automazione dell'Infrastruttura senza Segreti",
+        "date": "2026-02-28",
+        "author": "Valerio Simeraro",
+        "tags": ["ansible", "automation", "devops", "iac"],
+        "excerpt": "Come ho smesso di fare modifiche manuali e ho iniziato ad automatizzare tutto con Ansible: playbook, ruoli, vault e tips da produzione."
+    },
+    {
+        "slug": "docker-per-sysadmin",
+        "title": "Docker per SysAdmin: La Guida che Avrei Voluto",
+        "date": "2026-02-10",
+        "author": "Valerio Simeraro",
+        "tags": ["docker", "containers", "linux", "devops"],
+        "excerpt": "Dal perché usare Docker fino alle reti e ai volumi: tutto quello che serve a un sistemista per padroneggiare i container nel mondo reale."
+    },
+    {
+        "slug": "firewall-linux-nftables",
+        "title": "Firewall su Linux nel 2024: nftables è il Futuro",
+        "date": "2026-01-20",
+        "author": "Valerio Simeraro",
+        "tags": ["linux", "networking", "security", "firewall"],
+        "excerpt": "iptables è legacy. nftables è il suo successore ufficiale su Linux. Scopriamo come migrare e sfruttare tutta la potenza del nuovo framework."
+    }
+]

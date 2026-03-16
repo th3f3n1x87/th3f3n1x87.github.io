@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" id="meta-desc" content="Articolo del blog di Valerio Simeraro">
+    <title id="page-title">Post | Valerio Simeraro Blog</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;600;800&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Highlight.js for code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- Marked.js for markdown -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+
+    <link rel="stylesheet" href="../style.css">
+
+    <style>
+        /* Post-specific layout */
+        .post-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 50px;
+            padding-top: 130px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 5%;
+            padding-right: 5%;
+            min-height: 90vh;
+            align-items: start;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sidebar-card {
+            padding: 20px;
+        }
+
+        .sidebar-card h4 {
+            font-family: var(--font-code);
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Table of Contents */
+        #toc-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        #toc-list li { margin-bottom: 8px; }
+
+        #toc-list a {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: var(--transition);
+            display: block;
+            padding-left: 10px;
+            border-left: 2px solid transparent;
+        }
+
+        #toc-list a:hover {
+            color: var(--accent);
+            border-left-color: var(--accent);
+        }
+
+        /* Share buttons */
+        .share-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .share-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid var(--border-glass);
+            background: transparent;
+            color: var(--text-dim);
+            font-family: var(--font-code);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .share-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .share-btn i { width: 16px; text-align: center; }
+
+        /* Main article */
+        .post-main { min-width: 0; }
+
+        .post-header {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        .post-back {
+            font-family: var(--font-code);
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .post-back:hover { color: var(--accent); }
+
+        .post-meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .post-meta-item {
+            font-family: var(--font-code);
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .post-meta-item i { color: var(--accent); }
+
+        .post-title {
+            font-size: 2.2rem;
+            line-height: 1.3;
+            margin-bottom: 15px;
+            color: var(--text-main);
+        }
+
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .post-tag {
+            font-family: var(--font-code);
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 15px;
+            background: rgba(0, 255, 204, 0.08);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            color: var(--accent);
+        }
+
+        /* Markdown rendered content */
+        .post-content {
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .post-content h1,
+        .post-content h2,
+        .post-content h3 {
+            font-family: var(--font-heading);
+            color: var(--text-main);
+            margin: 35px 0 15px;
+        }
+
+        .post-content h1 { font-size: 1.8rem; }
+        .post-content h2 { font-size: 1.4rem; color: var(--accent); }
+        .post-content h3 { font-size: 1.15rem; }
+
+        .post-content p { margin-bottom: 18px; color: var(--text-dim); }
+
+        .post-content a { color: var(--accent); text-decoration: none; }
+        .post-content a:hover { text-decoration: underline; }
+
+        .post-content ul, .post-content ol {
+            padding-left: 25px;
+            margin-bottom: 18px;
+            color: var(--text-dim);
+        }
+
+        .post-content li { margin-bottom: 6px; }
+
+        .post-content blockquote {
+            border-left: 3px solid var(--accent);
+            padding: 10px 20px;
+            margin: 20px 0;
+            background: rgba(0, 255, 204, 0.05);
+            border-radius: 0 6px 6px 0;
+            color: var(--text-dim);
+            font-style: italic;
+        }
+
+        .post-content pre {
+            background: #1e1e1e;
+            border: 1px solid var(--border-glass);
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .post-content code {
+            font-family: var(--font-code);
+            font-size: 0.88rem;
+        }
+
+        .post-content p code, .post-content li code {
+            background: rgba(0, 255, 204, 0.08);
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            color: var(--accent);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .post-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+
+        .post-content th {
+            background: rgba(0, 255, 204, 0.1);
+            color: var(--accent);
+            padding: 10px 15px;
+            text-align: left;
+            border: 1px solid var(--border-glass);
+        }
+
+        .post-content td {
+            padding: 10px 15px;
+            border: 1px solid var(--border-glass);
+            color: var(--text-dim);
+        }
+
+        .post-content tr:nth-child(even) td {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .post-content hr {
+            border: none;
+            border-top: 1px solid var(--border-glass);
+            margin: 30px 0;
+        }
+
+        /* Loading / Error */
+        .post-loading {
+            text-align: center;
+            padding: 80px;
+            font-family: var(--font-code);
+            color: var(--text-dim);
+        }
+
+        .post-loading i { font-size: 2rem; margin-bottom: 20px; display: block; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--bg-surface);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-family: var(--font-code);
+            font-size: 0.85rem;
+            padding: 12px 20px;
+            border-radius: 6px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .toast.show { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 900px) {
+            .post-layout { grid-template-columns: 1fr; }
+            .sidebar { position: relative; top: 0; flex-direction: row; flex-wrap: wrap; }
+            .sidebar-card { flex: 1; min-width: 220px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient-1"></div>
+    <div class="bg-gradient-2"></div>
+
+    <nav class="navbar glass-effect">
+        <div class="logo">
+            <a href="../index.html" style="text-decoration: none; color: inherit; display:flex; align-items:center; gap: 5px;">
+                <span class="logo-bracket"><</span>
+                <span class="logo-text">V.Simeraro</span>
+                <span class="logo-bracket">/></span>
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html#home">~Home</a></li>
+            <li><a href="../index.html#skills">~Skills</a></li>
+            <li><a href="../index.html#experience">~Experience</a></li>
+            <li><a href="index.html" class="active">~Blog</a></li>
+            <li><a href="../index.html#contact">~Contact</a></li>
+        </ul>
+        <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+    </nav>
+
+    <div class="post-layout" id="post-layout">
+        <!-- Sidebar (left) -->
+        <aside class="sidebar">
+            <div class="sidebar-card glass-effect">
+                <h4>// share</h4>
+                <div class="share-buttons">
+                    <button class="share-btn" id="copy-link-btn">
+                        <i class="fas fa-link"></i> Copy Link
+                    </button>
+                    <button class="share-btn" id="share-linkedin">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </button>
+                    <button class="share-btn" id="share-twitter">
+                        <i class="fab fa-x-twitter"></i> Twitter/X
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-card glass-effect">
+                <h4>// toc</h4>
+                <ul id="toc-list">
+                    <li><span style="color: var(--text-dim); font-size: 0.8rem;">Loading...</span></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main article (right) -->
+        <main class="post-main" id="post-main">
+            <div class="post-loading">
+                <i class="fas fa-spinner"></i>
+                Loading post...
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <div class="footer-content glass-effect">
+            <p>&copy; 2024 Valerio Simeraro. System running optimally.</p>
+            <div class="uptime-counter">Uptime: <span id="uptime">0d 0h 0m</span></div>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+    // All post content is inlined for file:// compatibility.
+    // When running on GitHub Pages (HTTP) you can use fetch() instead.
+    const POSTS_DATA = {
+        "kubernetes-per-sysadmin": {
+            title: "Kubernetes per SysAdmin: da Zero a Cluster",
+            date: "2026-03-10",
+            author: "Valerio Simeraro",
+            tags: ["kubernetes", "devops", "containers", "linux"],
+            content: `# Kubernetes per SysAdmin: da Zero a Cluster
+
+Se sei un sistemista con esperienza su Linux e vuoi capire Kubernetes **senza il solito marketing**, sei nel posto giusto.
+
+---
+
+## Cos'è Kubernetes (davvero)?
+
+Kubernetes (K8s) è un **orchestratore di container**: gestisce il ciclo di vita, la scalabilità e la disponibilità dei tuoi container in modo completamente automatico.
+
+> _"Descrivi lo stato che vuoi, Kubernetes ci pensa a mantenerlo."_
+
+La differenza con Docker standalone è enorme: con K8s non gestisci i container **uno ad uno**, ma gestisci il **desired state** del tuo sistema intero.
+
+---
+
+## Architettura Core
+
+Un cluster Kubernetes è composto da:
+
+### Control Plane (ex Master)
+| Componente | Ruolo |
+|---|---|
+| \`api-server\` | Punto de entrata per ogni comando \`kubectl\` |
+| \`etcd\` | Database distribuito: la "memoria" del cluster |
+| \`scheduler\` | Decide su quale nodo girare nuovi pod |
+| \`controller-manager\` | Mantiene lo stato desiderato (es. replica pod crashati) |
+
+### Worker Nodes
+| Componente | Ruolo |
+|---|---|
+| \`kubelet\` | Agente su ogni nodo, riceve ordini dall'API server |
+| \`kube-proxy\` | Gestisce il networking dei pod |
+| Container Runtime | Docker, containerd, CRI-O |
+
+---
+
+## Il Pod: l'Unità Base
+
+Non esiste il concetto di "container" in K8s. L'unità minima è il **Pod**: uno o più container che condividono rete e storage.
+
+\`\`\`yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-test
+  labels:
+    app: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+\`\`\`
+
+Crea il pod:
+\`\`\`bash
+kubectl apply -f pod.yaml
+kubectl get pods
+kubectl describe pod nginx-test
+\`\`\`
+
+---
+
+## Deployment: Pod con Superpoderi
+
+Non crei mai pod direttamente in produzione. Usi un **Deployment** che gestisce repliche, rolling update e rollback.
+
+\`\`\`yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.25
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+\`\`\`
+
+---
+
+## Tips da Produzione
+
+1. **Imposta sempre i \`resource limits\`**: senza, un pod può consumare tutta la RAM del nodo.
+2. **Usa \`namespaces\`** per separare ambienti (dev, staging, prod) sullo stesso cluster.
+3. **Non usare \`latest\` come tag**: specifica sempre la versione esatta dell'immagine.
+4. **\`kubectl rollout undo deployment/nome\`** per rollback immediato.
+5. **Liveness e Readiness Probe**: insegnano a K8s quando un pod è davvero sano.
+`
+        },
+        "ansible-automazione-infrastruttura": {
+            title: "Ansible: Automazione dell'Infrastruttura senza Segreti",
+            date: "2026-02-28",
+            author: "Valerio Simeraro",
+            tags: ["ansible", "automation", "devops", "iac"],
+            content: `# Ansible: Automazione dell'Infrastruttura senza Segreti
+
+Ho smesso di fare modifiche manuali sui server il giorno in cui ho perso tre ore a debuggare una configurazione "temporanea" che era live da 6 mesi. La soluzione si chiama **Ansible**.
+
+---
+
+## Perché Ansible e non gli altri?
+
+| Tool | Agentless | Linguaggio | Learning Curve |
+|---|---|---|---|
+| **Ansible** | ✅ Sì | YAML + Jinja2 | Bassa |
+| Puppet | ❌ No | Ruby DSL | Alta |
+| Chef | ❌ No | Ruby | Alta |
+| Terraform | ✅ Sì | HCL | Media |
+
+Ansible è **agentless**: si connette via SSH ai tuoi server senza richiedere agent installati.
+
+---
+
+## Concetti Fondamentali
+
+### Inventory
+
+\`\`\`ini
+[webservers]
+web01.example.com
+web02.example.com
+
+[dbservers]
+db01.example.com ansible_user=postgres
+\`\`\`
+
+### Playbook
+
+\`\`\`yaml
+---
+- name: Setup Web Server
+  hosts: webservers
+  become: yes
+
+  tasks:
+    - name: Installa Nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Avvia e abilita Nginx
+      systemd:
+        name: nginx
+        state: started
+        enabled: yes
+  handlers:
+    - name: Reload Nginx
+      systemd:
+        name: nginx
+        state: reloaded
+\`\`\`
+
+---
+
+## Ansible Vault
+
+\`\`\`bash
+ansible-vault create group_vars/all/secrets.yml
+ansible-vault edit group_vars/all/secrets.yml
+ansible-playbook site.yml --ask-vault-pass
+\`\`\`
+
+---
+
+## Tips da Produzione
+
+1. **\`--check\` mode**: esegui in dry-run senza cambiare nulla.
+2. **\`--diff\`**: mostra cosa cambierebbe nei file.
+3. **Tag i task**: \`ansible-playbook site.yml --tags "nginx"\`.
+4. **\`ansible-lint\`**: usa sempre il linter.
+5. **Idempotenza**: scrivi task che girano N volte senza effetti collaterali.
+`
+        },
+        "docker-per-sysadmin": {
+            title: "Docker per SysAdmin: La Guida che Avrei Voluto",
+            date: "2026-02-10",
+            author: "Valerio Simeraro",
+            tags: ["docker", "containers", "linux", "devops"],
+            content: `# Docker per SysAdmin: La Guida che Avrei Voluto
+
+Prima di capire Docker, mi chiedevo sempre: _"Ma non bastano le VM?"_. Risposta: dipende. Ma i container hanno rivoluzionato la distribuzione del software per buoni motivi.
+
+---
+
+## Container vs VM: la differenza pratica
+
+| | VM | Container |
+|---|---|---|
+| Overhead | Alto (OS completo) | Basso (condivide kernel) |
+| Boot time | Minuti | Secondi |
+| Dimensione | GB | MB |
+| Isolamento | Completo | A livello di processo |
+
+---
+
+## Installazione e Primo Container
+
+\`\`\`bash
+curl -fsSL https://get.docker.com | sh
+sudo usermod -aG docker $USER
+docker run hello-world
+docker run -d -p 80:80 --name web nginx
+\`\`\`
+
+---
+
+## Il Dockerfile
+
+\`\`\`dockerfile
+FROM debian:bookworm-slim
+RUN apt-get update && apt-get install -y python3 --no-install-recommends
+WORKDIR /app
+COPY requirements.txt .
+RUN pip3 install -r requirements.txt
+COPY . .
+RUN useradd -m appuser && chown -R appuser /app
+USER appuser
+EXPOSE 8000
+CMD ["python3", "app.py"]
+\`\`\`
+
+---
+
+## Docker Compose
+
+\`\`\`yaml
+version: '3.8'
+services:
+  db:
+    image: postgres:16
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+volumes:
+  pgdata:
+\`\`\`
+
+---
+
+## Tips di Sicurezza
+
+1. **Mai root nel container**: usa \`USER nonroot\`.
+2. **Immagini base slim**: superficie di attacco ridotta.
+3. **Scan immagini**: \`docker scout cves myimage:tag\`.
+4. **Secrets**: mai variabili d'ambiente per le password.
+5. **Read-only filesystem**: \`docker run --read-only ...\`.
+`
+        },
+        "firewall-linux-nftables": {
+            title: "Firewall su Linux nel 2024: nftables è il Futuro",
+            date: "2026-01-20",
+            author: "Valerio Simeraro",
+            tags: ["linux", "networking", "security", "firewall"],
+            content: `# Firewall su Linux nel 2024: nftables è il Futuro
+
+\`iptables\` ha fatto il suo tempo. Su tutte le distro moderne il default è **nftables**.
+
+---
+
+## Perché Passare a nftables?
+
+| Caratteristica | iptables | nftables |
+|---|---|---|
+| Tabelle separate | ✅ Sì (confuso) | ❌ No, tutto unificato |
+| Syntax | Verbosa | Compatta |
+| Transazione atomica | ❌ No | ✅ Sì |
+
+---
+
+## Ruleset Base per un Server
+
+\`\`\`nft
+flush ruleset
+
+table inet filter {
+    chain input {
+        type filter hook input priority 0; policy drop;
+        iifname lo accept
+        ct state established,related accept
+        ip protocol icmp accept
+        tcp dport 22 ip saddr 192.168.1.0/24 accept
+        tcp dport { 80, 443 } accept
+        log prefix "[nftables DROP] " drop
+    }
+    chain forward { type filter hook forward priority 0; policy drop; }
+    chain output  { type filter hook output priority 0; policy accept; }
+}
+\`\`\`
+
+\`\`\`bash
+nft -f /etc/nftables.conf   # Applica
+nft -c -f /etc/nftables.conf # Verifica sintassi
+\`\`\`
+
+---
+
+## Maps: Blocklist Dinamica
+
+\`\`\`nft
+set blocklist {
+    type ipv4_addr
+    flags interval
+    elements = { 192.168.99.0/24 }
+}
+chain input { ip saddr @blocklist drop }
+\`\`\`
+
+\`\`\`bash
+nft add element inet filter blocklist { 1.2.3.4 }
+\`\`\`
+
+---
+
+## Tips per la Produzione
+
+1. **Sempre \`flush ruleset\` all'inizio**: stato pulito e deterministico.
+2. **Testa prima di applicare**: \`nft -c -f file.nft\`.
+3. **Usa \`ct state established,related accept\`** o bloccherai il traffico di ritorno.
+4. **Versiona con Git**: un errore di firewall blocca l'SSH.
+`
+        }
+    };
+
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function generateTOC(html) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const headings = doc.querySelectorAll('h2, h3');
+        const tocList = document.getElementById('toc-list');
+        tocList.innerHTML = '';
+        if(headings.length === 0) {
+            tocList.innerHTML = '<li><span style="color:var(--text-dim);font-size:0.8rem">No headings found</span></li>';
+            return html;
+        }
+        headings.forEach(h => {
+            const id = h.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            const li = document.createElement('li');
+            li.style.paddingLeft = h.tagName === 'H3' ? '12px' : '0';
+            li.innerHTML = `<a href="#${id}">${h.textContent}</a>`;
+            tocList.appendChild(li);
+        });
+        return html.replace(/<h([23])>(.*?)<\/h([23])>/g, (match, level, text) => {
+            const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            return `<h${level} id="${id}">${text}</h${level}>`;
+        });
+    }
+
+    function formatDate(dateStr) {
+        const d = new Date(dateStr);
+        return d.toLocaleDateString('it-IT', { year: 'numeric', month: 'long', day: 'numeric' });
+    }
+
+    function readingTime(text) {
+        return Math.ceil(text.trim().split(/\s+/).length / 200);
+    }
+
+    function loadPost() {
+        const params = new URLSearchParams(window.location.search);
+        const slug = params.get('slug');
+
+        if(!slug || !POSTS_DATA[slug]) {
+            document.getElementById('post-main').innerHTML = `<div class="post-loading"><i class="fas fa-bug"></i>Articolo non trovato.</div>`;
+            document.getElementById('toc-list').innerHTML = '';
+            return;
+        }
+
+        const post = POSTS_DATA[slug];
+        document.getElementById('page-title').textContent = `${post.title} | Blog`;
+        document.getElementById('meta-desc').content = post.title;
+
+        // Parse markdown
+        const rawHtml = marked.parse(post.content);
+        const htmlWithIds = generateTOC(rawHtml);
+        const minRead = readingTime(post.content);
+
+        document.getElementById('post-main').innerHTML = `
+            <div class="post-header">
+                <a href="index.html" class="post-back"><i class="fas fa-arrow-left"></i> Torna al Blog</a>
+                <div class="post-meta-row">
+                    <span class="post-meta-item"><i class="fas fa-calendar"></i> ${formatDate(post.date)}</span>
+                    <span class="post-meta-item"><i class="fas fa-user"></i> ${post.author}</span>
+                    <span class="post-meta-item"><i class="fas fa-clock"></i> ~${minRead} min read</span>
+                </div>
+                <h1 class="post-title">${post.title}</h1>
+                <div class="post-tags">
+                    ${post.tags.map(t => `<span class="post-tag">#${t}</span>`).join('')}
+                </div>
+            </div>
+            <article class="post-content">${htmlWithIds}</article>
+        `;
+
+        // Syntax highlighting
+        document.querySelectorAll('.post-content pre code').forEach(block => hljs.highlightElement(block));
+    }
+
+    // Share actions
+    document.getElementById('copy-link-btn').addEventListener('click', () => {
+        navigator.clipboard.writeText(window.location.href)
+            .then(() => showToast('✓ Link copiato negli appunti!'));
+    });
+    document.getElementById('share-linkedin').addEventListener('click', () => {
+        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`, '_blank');
+    });
+    document.getElementById('share-twitter').addEventListener('click', () => {
+        window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(document.getElementById('page-title').textContent)}`, '_blank');
+    });
+
+    // Uptime
+    let s = 5*24*3600 + 10*3600 + 25*60;
+    setInterval(() => {
+        s++;
+        const d = Math.floor(s/86400), h = Math.floor(s%86400/3600), m = Math.floor(s%3600/60), sec = s%60;
+        document.getElementById('uptime').textContent = `${d}d ${h}h ${m}m ${sec}s`;
+    }, 1000);
+
+    // Mobile nav
+    const toggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.nav-links');
+    toggle.addEventListener('click', () => {
+        nav.classList.toggle('active');
+        toggle.querySelector('i').classList.toggle('fa-bars');
+        toggle.querySelector('i').classList.toggle('fa-times');
+    });
+
+    // Navbar scroll
+    window.addEventListener('scroll', () => {
+        document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    loadPost();
+    </script>
+
+</body>
+</html>
+
