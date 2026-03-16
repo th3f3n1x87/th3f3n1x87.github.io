@@ -130,20 +130,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 5. Uptime Counter Simulation ---
+    // --- 5. Uptime Counter (reale dalla data di lancio) ---
+    const LAUNCH_DATE = new Date('2026-03-16T00:00:00');
     const uptimeSpan = document.getElementById('uptime');
-    // Set a mock start time (e.g. 5 days ago)
-    let uptimeSeconds = 5 * 24 * 60 * 60 + 10 * 60 * 60 + 25 * 60; // 5d 10h 25m
-    
     setInterval(() => {
-        uptimeSeconds++;
-        const d = Math.floor(uptimeSeconds / (3600*24));
-        const h = Math.floor(uptimeSeconds % (3600*24) / 3600);
-        const m = Math.floor(uptimeSeconds % 3600 / 60);
-        const s = Math.floor(uptimeSeconds % 60);
-        
+        const diff = Math.floor((new Date() - LAUNCH_DATE) / 1000);
+        const d = Math.floor(diff/86400);
+        const h = Math.floor(diff%86400/3600);
+        const m = Math.floor(diff%3600/60);
+        const s = diff%60;
         uptimeSpan.textContent = `${d}d ${h}h ${m}m ${s}s`;
     }, 1000);
+
+    // --- Copyright year dinamico ---
+    const yearEl = document.getElementById('copy-year');
+    if(yearEl) yearEl.textContent = new Date().getFullYear();
 
 });
 
